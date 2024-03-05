@@ -62,7 +62,7 @@ last_rangefinder_distance=0
 
 @vehicle.on_attribute('rangefinder')
 def rangefinder_callback(self,attr_name):
-     #attr_name not used here.
+     #attr_name not use127.0.0.1:14550d here.
      global last_rangefinder_distance
      if last_rangefinder_distance == round(self.rangefinder.distance, 1):
          return
