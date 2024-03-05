@@ -57,3 +57,39 @@ time.sleep(2)
 
  # Remove observer - specifying the attribute and previously registered callback function
 vehicle.remove_message_listener('location.global_frame', location_callback)
+
+last_rangefinder_distance=0
+
+@vehicle.on_attribute('rangefinder')
+def rangefinder_callback(self,attr_name):
+     #attr_name not used here.
+     global last_rangefinder_distance
+     if last_rangefinder_distance == round(self.rangefinder.distance, 1):
+         return
+     last_rangefinder_distance = round(self.rangefinder.distance, 1)
+     print(" Rangefinder (metres): %s" % last_rangefinder_distance)
+     
+# Demonstrate getting callback on any attribute change
+def wildcard_callback(self, attr_name, value):
+    print(" CALLBACK: (%s): %s" % (attr_name,value))
+
+print("\nAdd attribute callback detecting any attribute change")
+vehicle.add_attribute_listener('*', wildcard_callback)
+
+
+print("Wait 1s so callback invoked before observer removed")
+time.sleep(1)
+
+print(" Remove Vehicle attribute observer")
+# Remove observer added with `add_attribute_listener()`
+vehicle.remove_attribute_listener('*', wildcard_callback)
+
+while not vehicle.home_location:
+    cmds = vehicle.commands
+    cmds.download()
+    cmds.wait_ready()
+    if not vehicle.home_location:
+        print(" Waiting for home location ...")
+
+# We have a home location.
+print ("\n Home location: %s" % vehicle.home_location)
