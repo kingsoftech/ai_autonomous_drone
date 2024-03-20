@@ -13,7 +13,7 @@ def connectCopter():
     args = parser.parse_args()
     
     connection_string = args.connect
-    if connection_string != '':
+    if str(connection_string) != ' ':
         vehicle = connect(connection_string,wait_ready=True)
     else:
        vehicle = connect('127.0.0.1:14550',wait_ready=True) 
