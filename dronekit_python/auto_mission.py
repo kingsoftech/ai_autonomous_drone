@@ -169,6 +169,23 @@ cmd4=Command(0,
              wp3.lon,#lon
              wp3.alt #attitude
              )
+
+cmd5=Command(0,
+             0,
+             0,
+             mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT,
+             mavutil.mavlink.MAV_CMD_NAV_RETURN_TO_LAUNCH,
+             0,
+             0,
+             0,
+             0,
+             0,
+             0,
+             0,#lat
+             0,#lon
+             0 #attitude
+             )
+
 cmds = vehicle.commands
 cmds.download()
 cmds.wait_ready()
@@ -176,6 +193,11 @@ cmds.wait_ready()
 cmds.clear()
  
 cmds.add(cmd1)
+cmds.add(cmd2)
+cmds.add(cmd3)
+cmds.add(cmd4)
+cmds.add(cmd5)
+
 
 vehicle.commands.upload()
 
