@@ -71,6 +71,7 @@ def move_coordinate(lat, lon, distance):
     return new_lat, new_lon
 
 def goto(targetLocation):
+    print("implementing goto function")
     distance_to_target_location = get_distance_meter(targetLocation, vehicle.location.global_relative_frame) 
     vehicle.simple_goto(targetLocation)
     
@@ -80,8 +81,8 @@ def goto(targetLocation):
             print("Reached target waypoint")
             time.sleep(2)
             break
-        time.sleep(1)
-        return None
+    time.sleep(1)
+    return None
 def land():
     vehicle.mode = VehicleMode("LAND")
     while vehicle.mode.name != "LAND": 
