@@ -93,9 +93,9 @@ vehicle = connectCopter()
 
 copter_current_location = vehicle.location.global_relative_frame
 
-goto_lat, goto_lon = move_coordinate(copter_current_location.lat, copter_current_location.lon, 10)
+goto_lat1, goto_lon1 = move_coordinate(copter_current_location.lat, copter_current_location.lon, 10)
 
-wp1 = LocationGlobalRelative(goto_lat, goto_lon, 10)
+wp1 = LocationGlobalRelative(goto_lat1, goto_lon1, 10)
 
 arm_and_takeOff(10)
 

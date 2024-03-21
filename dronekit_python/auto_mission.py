@@ -90,6 +90,14 @@ def land():
         print("waiting for vehicle to enter land mode")
         time.sleep(1)  
     print("Vehicle landing!!!")
+    
+def gen_wp_from_dist_and_alt(dist, altitude):
+    
+    copter_current_location = vehicle.location.global_relative_frame
+    goto_lat1, goto_lon1 = move_coordinate(copter_current_location.lat, copter_current_location.lon, dist)
+    wp = LocationGlobalRelative(goto_lat1, goto_lon1, altitude)
+    
+    return wp
 vehicle = connectCopter()
 
 wpHome = vehicle.location.global_relative_frame
@@ -106,9 +114,78 @@ cmd1=Command(0,
              0,
              0,
              0,
-             44.501416,#lat
-             -88.063205,#lon
-             15 #attitude
+             wpHome.lat,#lat
+             wpHome.lon,#lon
+             wpHome.alt #attitude
              )
 
+wp1 = gen_wp_from_dist_and_alt(10,10)
+cmd2=Command(0,
+             0,
+             0,
+             mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT,
+             mavutil.mavlink.MAV_CMD_NAV_WAYPOINT,
+             0,
+             0,
+             0,
+             0,
+             0,
+             0,
+             wp1.lat,#lat
+             wp1.lon,#lon
+             wp1.alt #attitude
+             )
 
+wp2 = gen_wp_from_dist_and_alt(dist=-10, altitude=15)
+cmd3=Command(0,
+             0,
+             0,
+             mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT,
+             mavutil.mavlink.MAV_CMD_NAV_WAYPOINT,
+             0,
+             0,
+             0,
+             0,
+             0,
+             0,
+             wp2.lat,#lat
+             wp2.lon,#lon
+             wp2.alt #attitude
+             )
+
+wp3 = gen_wp_from_dist_and_alt(dist=10, altitude=10)
+cmd4=Command(0,
+             0,
+             0,
+             mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT,
+             mavutil.mavlink.MAV_CMD_NAV_WAYPOINT,
+             0,
+             0,
+             0,
+             0,
+             0,
+             0,
+             wp3.lat,#lat
+             wp3.lon,#lon
+             wp3.alt #attitude
+             )
+cmds = vehicle.commands
+cmds.download()
+cmds.wait_ready()
+
+cmds.clear()
+ 
+cmds.add(cmd1)
+
+vehicle.commands.upload()
+
+arm_and_takeOff(10)
+
+vehicle.mode = VehicleMode("AUTO")
+
+while vehicle.mode.name !="AUTO":
+    time.sleep(.2)
+
+while vehicle.location.global_relative_frame.alt:
+    print("auto commands are running execute more codes")
+    time.sleep(2)
