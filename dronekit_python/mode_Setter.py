@@ -38,4 +38,3 @@ while vehicle.armed == False:
     time.sleep(1)
 print("vehicle is armed")
 
-
