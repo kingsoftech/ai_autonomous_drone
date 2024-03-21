@@ -136,7 +136,7 @@ cmd2=Command(0,
              wp1.alt #attitude
              )
 
-wp2 = gen_wp_from_dist_and_alt(dist=-10, altitude=15)
+wp2 = gen_wp_from_dist_and_alt(dist=-10, altitude=10)
 cmd3=Command(0,
              0,
              0,
