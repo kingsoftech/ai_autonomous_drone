@@ -85,7 +85,7 @@ vehicle = connectCopter()
 arm_and_takeOff(3)
 
 counter= 0
-while counter<5:
+while counter<3:
     send_global_ned_velocity(2,0,0)
     time.sleep(1)
     print("Moving NORTH relative to the front of drone")
@@ -94,14 +94,14 @@ while counter<5:
 time.sleep(2)
 
 counter= 0
-while counter<5:
+while counter<3:
     send_global_ned_velocity(0,-2,0)
     time.sleep(1)
     print("Moving WEST relative to the front of drone")
     counter +=1
     
 counter= 0
-while counter<5:
+while counter<3:
     send_local_ned_velocity(2,0,0)
     time.sleep(1)
     print("Moving TRUE NORTH relative to the front of drone")
@@ -110,7 +110,7 @@ while counter<5:
 time.sleep(2)
 
 counter= 0
-while counter<5:
+while counter<3:
     send_local_ned_velocity(0,-2,0)
     time.sleep(1)
     print("Moving TRUE WEST relative to the front of drone")
