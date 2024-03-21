@@ -19,3 +19,23 @@ def connectCopter():
     
     return vehicle
 vehicle = connectCopter()
+
+while vehicle.is_armable != True:
+    print("waiting for vehicle to become armable")
+    time.sleep(1)
+print("Vehicle is now armable")
+vehicle.mode = VehicleMode("GUIDED")
+
+while vehicle.mode != "GUIDED":
+    print("waiting for drone to enter guided flight mode")
+    time.sleep(1)
+print("Vehicle now in Guided flight mode")
+
+vehicle.armed = True
+
+while vehicle.armed == False:
+    print("waiting for vwehicle to arm")
+    time.sleep(1)
+print("vehicle is armed")
+
+
